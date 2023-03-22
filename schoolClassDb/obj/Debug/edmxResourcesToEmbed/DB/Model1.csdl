@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="UPDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="UPDBEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="USER" EntityType="UPDBModel.USER" />
+    <EntitySet Name="USERINFO" EntityType="UPDBModel.USERINFO" />
+    <AssociationSet Name="FK__USER__UserInfoId__17F790F9" Association="UPDBModel.FK__USER__UserInfoId__17F790F9">
+      <End Role="USERINFO" EntitySet="USERINFO" />
+      <End Role="USER" EntitySet="USER" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="USER">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="login" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="PASSWORD" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="EMAIL" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="UserInfoId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="USERINFO" Relationship="UPDBModel.FK__USER__UserInfoId__17F790F9" FromRole="USER" ToRole="USERINFO" />
+  </EntityType>
+  <EntityType Name="USERINFO">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="NAME" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="SURNAME" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="AGE" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="USER" Relationship="UPDBModel.FK__USER__UserInfoId__17F790F9" FromRole="USERINFO" ToRole="USER" />
+  </EntityType>
+  <Association Name="FK__USER__UserInfoId__17F790F9">
+    <End Type="UPDBModel.USERINFO" Role="USERINFO" Multiplicity="1" />
+    <End Type="UPDBModel.USER" Role="USER" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="USERINFO">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="USER">
+        <PropertyRef Name="UserInfoId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>
